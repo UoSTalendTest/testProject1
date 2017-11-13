@@ -153,7 +153,7 @@
       <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
       <outputTables sizeState="INTERMEDIATE" name="toUpperCase">
         <mapperTableEntries name="field" expression="row1.field" type="id_String" nullable="true"/>
-        <mapperTableEntries name="value" expression="'hello, ' +  row1.value.toUpperCase() " type="id_String" nullable="true"/>
+        <mapperTableEntries name="value" expression="&quot;hello, &quot; + row1.value.toUpperCase() " type="id_String" nullable="true"/>
       </outputTables>
       <inputTables sizeState="INTERMEDIATE" name="row1" matchingMode="ALL_ROWS" lookupMode="LOAD_ONCE">
         <mapperTableEntries name="field" type="id_String" nullable="true"/>
