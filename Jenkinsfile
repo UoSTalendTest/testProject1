@@ -12,17 +12,14 @@ node {
     // Checkout code from repository and update any submodules
     checkout scm
 
-    //use Talend CI builder to generate java sources from xml files
-    stage 'Generate Sources'
-    
-    //use Talend CI builder to compile java sources
-    stage 'Compile Sources'
+    //use Talend CI builder to generate java sources from xml files and compile
+    stage 'Generate and Compile Sources'
     
     stage 'Test Coverage'
     
     stage 'Tests'
     
-    stage 'Publish'
+    stage 'Package and Publish'
 
     stage 'Deploy'
 
