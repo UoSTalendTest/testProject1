@@ -20,9 +20,6 @@ pipeline {
 		    }
 		}
 		stage('Generate and Compile Sources') {
-			//tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
-	withEnv(["JAVA_HOME=${ tool 'Java 8' }", 
-		 "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
 		    steps {
 			echo 'Generate and Compile Sources..'
 			    // Apache Maven related side notes:
@@ -33,6 +30,9 @@ pipeline {
 			    // -e : Produce execution error messages
 			    // -Dsurefire.useFile=false : useful in CI. Displays test errors in the logs directly (instead of
 			    //                            having to crawl the workspace files to see the cause).
+			    			//tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
+	withEnv(["JAVA_HOME=${ tool 'Java 8' }", 
+		 "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
 			sh "mvn --batch-mode -V -U -e  -Dsurefire.useFile=false \
 			    -f /opt/talend-jenkins/ci-builder-pom.xml \
 			    --settings "${talend_home}"/studio/configuration/maven_user_settings.xml \
