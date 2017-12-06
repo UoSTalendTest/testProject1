@@ -3,7 +3,7 @@
 def mailto = "h.babraa@sheffield.ac.uk"
 def talend_home = "/opt/talend"
 
-pipeline {
+pipeline { //Declarative Pipeline will do checkout automatically
     agent any
     /*tools { 
 	maven 'Maven' 
@@ -12,13 +12,6 @@ pipeline {
 
 	
     stages {
-		stage('Checkout') {
-		    steps {
-			echo 'Checking out..'
-			checkout scm
-			echo "Branch is: ${env.GIT_BRANCH}"
-		    }
-		}
 		stage('Generate and Compile Sources') {
 		    steps {
 			echo 'Generate and Compile Sources..'
