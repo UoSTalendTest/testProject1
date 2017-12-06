@@ -33,7 +33,7 @@ pipeline {
 			    //                            having to crawl the workspace files to see the cause).
 			sh "mvn --batch-mode -V -U -e  -Dsurefire.useFile=false \
 			    -f /opt/talend-jenkins/ci-builder-pom.xml \
-			    --settings "$talend_home/studio/configuration/maven_user_settings.xml" \
+			    --settings "${talend_home}"/studio/configuration/maven_user_settings.xml \
 			    org.talend:ci.builder:6.4.1:local-generate"
 		    }
 		}
