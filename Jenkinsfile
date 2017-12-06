@@ -9,13 +9,8 @@ pipeline {
 	maven 'Maven' 
 	jdk 'Java 8' 
     }*/
-	environment {
-        DISABLE_AUTH = 'true'
-        DB_ENGINE    = 'sqlite'
-    }
-	//tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
-	withEnv(["JAVA_HOME=${ tool 'Java 8' }", 
-		 "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
+
+	
     stages {
 		stage('Checkout') {
 		    steps {
@@ -25,6 +20,9 @@ pipeline {
 		    }
 		}
 		stage('Generate and Compile Sources') {
+			//tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
+	withEnv(["JAVA_HOME=${ tool 'Java 8' }", 
+		 "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
 		    steps {
 			echo 'Generate and Compile Sources..'
 			    // Apache Maven related side notes:
@@ -40,6 +38,7 @@ pipeline {
 			    --settings "${talend_home}"/studio/configuration/maven_user_settings.xml \
 			    org.talend:ci.builder:6.4.1:local-generate"
 		    }
+	}
 		}
 		stage('Test Coverage') {
 		    steps {
@@ -78,7 +77,6 @@ pipeline {
 		    }
 		}
 		//end stages
-	    }
     }
 
     post {
