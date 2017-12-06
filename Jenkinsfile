@@ -9,10 +9,14 @@ pipeline {
 	maven 'Maven' 
 	jdk 'Java 8' 
     }*/
-    stages {
+	environment {
+        DISABLE_AUTH = 'true'
+        DB_ENGINE    = 'sqlite'
+    }
 	//tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
 	withEnv(["JAVA_HOME=${ tool 'Java 8' }", 
 		 "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
+    stages {
 		stage('Checkout') {
 		    steps {
 			echo 'Checking out..'
