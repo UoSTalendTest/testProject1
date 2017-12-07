@@ -66,16 +66,27 @@ pipeline { //Declarative Pipeline will do checkout automatically
                 //sh "/usr/local/jenkins-tools/rbenv/bin/rbenv rehash"
             }
         }
+    stage ('success'){
+            steps {
+                script {
+                    currentBuild.result = 'SUCCESS'
+                }
+            }
+        }
     }
 
     post {
         failure {
             script {
-                step([$class: 'Mailer',
-                      notifyEveryUnstableBuild: true,
-                      recipients: "$mailto",
-                      sendToIndividuals: true])
+                currentBuild.result = 'FAILURE'
             }
+        }
+
+        always {
+            step([$class: 'Mailer',
+                notifyEveryUnstableBuild: true,
+			    recipients: "$mailto",
+                sendToIndividuals: true])
         }
     }
 }
