@@ -22,7 +22,6 @@ pipeline { //Declarative Pipeline will do checkout automatically
         TALEND_HOME = "/opt/talend"
         MAVEN_CMD_OPTS =" --batch-mode -V -U -e -X" +
                 " -Dsurefire.useFile=false" +
-                " -Dsurefire.failIfNoTests=true" + 
                 " --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml"
     }
     tools {
@@ -38,7 +37,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
         }
         stage("Build and Test") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} -Dmaven.test.skip=false -Dmaven.test.skipTests=false -f ${WORKSPACE}/projectSources/pom.xml test" //-fn means fail-never!
+                sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml test" //-fn means fail-never!
             }
         }
         stage("Package and Publish") {
@@ -67,16 +66,27 @@ pipeline { //Declarative Pipeline will do checkout automatically
                 //sh "/usr/local/jenkins-tools/rbenv/bin/rbenv rehash"
             }
         }
+    stage ('success'){
+            steps {
+                script {
+                    currentBuild.result = 'SUCCESS'
+                }
+            }
+        }
     }
 
     post {
-        changes {
+        failure {
             script {
-                step([$class: 'Mailer',
-                      notifyEveryUnstableBuild: true,
-                      recipients: "$mailto",
-                      sendToIndividuals: true])
+                currentBuild.result = 'FAILURE'
             }
+        }
+
+        always {
+            step([$class: 'Mailer',
+                notifyEveryUnstableBuild: true,
+			    recipients: "$mailto",
+                sendToIndividuals: true])
         }
     }
 }
