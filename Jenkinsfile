@@ -22,11 +22,11 @@ Tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
 pipeline { //Declarative Pipeline will do checkout automatically
     agent any
         environment { 
-        	TALEND_HOME = "/opt/talend",
-		MAVEN_OPTS="--batch-mode -X -V -U -e " + 
-			"-Dsurefire.useFile=false " + 
-			"-f ${TALEND_HOME}jenkins/ci-builder-pom.xml " + 
-			"--settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml "
+        	TALEND_HOME = "/opt/talend"
+		MAVEN_CMD_OPTS =" --batch-mode -X -V -U -e" + 
+			" -Dsurefire.useFile=false" + 
+			" -f ${TALEND_HOME}jenkins/ci-builder-pom.xml" + 
+			" --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml"
     }
     tools { 
 		maven "Maven" 
