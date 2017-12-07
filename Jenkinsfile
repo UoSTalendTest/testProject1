@@ -70,7 +70,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
     }
 
     post {
-        changes {
+        failure {
             script {
                 step([$class: 'Mailer',
                       notifyEveryUnstableBuild: true,
