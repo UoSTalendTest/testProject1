@@ -27,15 +27,15 @@ pipeline { //Declarative Pipeline will do checkout automatically
 	maven 'Maven' 
 	jdk 'Java 8' 
     }*/
-
-	
+	environment { 
+	        JAVA_HOME=${ tool 'Java 8' },
+			PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin
+	}
     stages {
 		stage("Generate and Compile Sources") {
 		    steps {
 				echo "Generate and Compile Sources in workspace ${WORKSPACE}"
-				withEnv(["JAVA_HOME=${ tool 'Java 8' }", "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
-					sh "mvn --batch-mode -X -V -U -e  -Dsurefire.useFile=false -f /opt/talend/jenkins/ci-builder-pom.xml --settings /opt/talend/studio/configuration/maven_user_settings.xml org.talend:ci.builder:6.4.1:local-generate"
-		    	}
+				sh "mvn --batch-mode -X -V -U -e  -Dsurefire.useFile=false -f /opt/talend/jenkins/ci-builder-pom.xml --settings /opt/talend/studio/configuration/maven_user_settings.xml org.talend:ci.builder:6.4.1:local-generate"
 			}
 		}
 		stage('Test Coverage') {
