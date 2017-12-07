@@ -39,7 +39,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
         }
         stage("Compile Sources") {
             steps {
-                echo "Tests.."
+                echo "Compile.."
                 sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml compile -fn -e"
             }
         }
