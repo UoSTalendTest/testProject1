@@ -22,7 +22,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
         TALEND_HOME = "/opt/talend"
         MAVEN_CMD_OPTS =" --batch-mode -V -U -e" +
                 " -Dsurefire.useFile=false" +
-                " --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml"
+                " --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml" //
     }
     tools {
         //Tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
@@ -32,7 +32,9 @@ pipeline { //Declarative Pipeline will do checkout automatically
     stages {
         stage("Generate Sources") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} -f ${TALEND_HOME}/jenkins/ci-builder-pom.xml clean org.talend:ci.builder:6.4.1:local-generate"
+                sh "mvn ${MAVEN_CMD_OPTS} "+ 
+		" -f ${TALEND_HOME}/jenkins/ci-builder-pom.xml" + // pom used to run ci-builder to create maven java project with src and pom
+		" clean org.talend:ci.builder:6.4.1:local-generate" //goal to generate sources using above pom
             }
         }
         stage("Build and Test") {
