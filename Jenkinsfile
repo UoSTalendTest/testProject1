@@ -20,7 +20,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
     agent any
     environment {
         TALEND_HOME = "/opt/talend"
-        MAVEN_CMD_OPTS =" --batch-mode -V -U -e -X" +
+        MAVEN_CMD_OPTS =" --batch-mode -V -U -e" +
                 " -Dsurefire.useFile=false" +
                 " --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml"
     }
@@ -42,7 +42,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
         }
         stage("Package and Publish") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/GITTESTPROJECT1/pom.xml" //-fn means fail-never!
+                sh "mvn ${MAVEN_CMD_OPTS} -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/GITTESTPROJECT1/pom.xml deploy " //-fn means fail-never!
             }
         }
         stage("Deploy to Runtime") {
