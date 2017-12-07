@@ -23,14 +23,10 @@ Tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
 
 pipeline { //Declarative Pipeline will do checkout automatically
     agent any
-    /*tools { 
-	maven 'Maven' 
-	jdk 'Java 8' 
-    }*/
-	environment { 
-	        JAVA_HOME=${ tool 'Java 8' },
-			PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin
-	}
+    tools { 
+		maven 'Maven' 
+		jdk 'Java 8' 
+    }
     stages {
 		stage("Generate and Compile Sources") {
 		    steps {
