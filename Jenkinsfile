@@ -20,7 +20,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
     agent any
     environment {
         TALEND_HOME = "/opt/talend"
-        MAVEN_CMD_OPTS =" --batch-mode -V -U -e" +
+        MAVEN_CMD_OPTS =" --batch-mode -V -U -e -X" +
                 " -Dsurefire.useFile=false" +
                 " -Dsurefire.failIfNoTests=true" + 
                 " --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml"
