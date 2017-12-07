@@ -33,29 +33,24 @@ pipeline { //Declarative Pipeline will do checkout automatically
     stages {
         stage("Generate Sources") {
             steps {
-                echo "Generate Sources..}"
                 sh "mvn ${MAVEN_CMD_OPTS} -f ${TALEND_HOME}/jenkins/ci-builder-pom.xml org.talend:ci.builder:6.4.1:local-generate"
             }
         }
         stage("Build and Test") {
             steps {
-                echo "Tests.."
                 sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml -Dmaven.test.skip=false test" //-fn means fail-never!
             }
         }
         stage("Package and Publish") {
             steps {
-                echo "Package and Publish.."
             }
         }
         stage("Deploy") {
             steps {
-                echo "Deploy.."
             }
         }
         stage("Verify Deploy") {
             steps {
-                echo "Verify Deploy.."
             }
         }
         stage("Build") {
