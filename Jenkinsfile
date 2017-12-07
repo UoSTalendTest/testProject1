@@ -40,7 +40,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
         stage("Build and Test") {
             steps {
                 echo "Tests.."
-                sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml test" //-fn means fail-never!
+                sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml -Dmaven.test.skip=false test" //-fn means fail-never!
             }
         }
         stage("Package and Publish") {
