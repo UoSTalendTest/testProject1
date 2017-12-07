@@ -42,7 +42,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
         }
         stage("Package and Publish") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml deploy" //-fn means fail-never!
+                sh "mvn ${MAVEN_CMD_OPTS} -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/GITTESTPROJECT1/pom.xml" //-fn means fail-never!
             }
         }
         stage("Deploy to Runtime") {
