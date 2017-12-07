@@ -14,7 +14,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
     stages {
 		stage('Generate and Compile Sources') {
 		    steps {
-			echo "Generate and Compile Sources.. ${env.WORKSPACE} ${WORKSPACE}"
+			echo "Generate and Compile Sources in workspace ${WORKSPACE}"
 			    // Apache Maven related side notes:
 			    // --batch-mode : recommended in CI to inform maven to not run in interactive mode (less logs)
 			    // -V : strongly recommended in CI, will display the JDK and Maven versions in use.
@@ -62,8 +62,8 @@ pipeline { //Declarative Pipeline will do checkout automatically
 				input message: 'Are you sure you want to deploy? (Click "Proceed" to continue)'
 			    }
 			}
-			sh '/usr/local/jenkins-tools/rbenv/shims/bundle install'
-			sh '/usr/local/jenkins-tools/rbenv/bin/rbenv rehash'
+			//sh '/usr/local/jenkins-tools/rbenv/shims/bundle install'
+			//sh '/usr/local/jenkins-tools/rbenv/bin/rbenv rehash'
 		    }
 		}
 		//end stages
