@@ -76,13 +76,13 @@ pipeline { //Declarative Pipeline will do checkout automatically
     }
 
     post {
-        changed {
-            script {
-		    	step([$class: "Mailer",
-				notifyEveryUnstableBuild: true,
-				recipients: "$mailto",
-				sendToIndividuals: true])
-            }
-        }
+        failure {
+      	emailext (
+          subject: "FAILED: Job '${JOB_NAME} [${BUILD_NUMBER}]'",
+          body: """<p>FAILED: Job '${JOB_NAME} [${BUILD_NUMBER}]':</p>
+            <p>Check console output at &QUOT;<a href='${BUILD_URL}'>${JOB_NAME} [${BUILD_NUMBER}]</a>&QUOT;</p>""",
+		to: ${mailto}
+        )
+    }
     }
 }
