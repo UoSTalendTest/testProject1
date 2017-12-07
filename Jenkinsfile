@@ -43,14 +43,17 @@ pipeline { //Declarative Pipeline will do checkout automatically
         }
         stage("Package and Publish") {
             steps {
+                echo 'Deploy..'
             }
         }
         stage("Deploy") {
             steps {
+                echo 'Deploy..'
             }
         }
         stage("Verify Deploy") {
             steps {
+                echo 'Deploy..'
             }
         }
         stage("Build") {
