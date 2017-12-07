@@ -32,27 +32,27 @@ pipeline { //Declarative Pipeline will do checkout automatically
 		}
 		stage('Test Coverage') {
 		    steps {
-			echo 'Test Coverage..'
+			echo "Test Coverage.."
 		    }
 		}
 		stage('Tests') {
 		    steps {
-			echo 'Tests..'
+			echo "Tests.."
 		    }
 		}
 		stage('Package and Publish') {
 		    steps {
-			echo 'Package and Publish..'
+			echo "Package and Publish.."
 		    }
 		}
 		stage('Deploy') {
 		    steps {
-			echo 'Deploy..'
+			echo "Deploy.."
 		    }
 		}
 		stage('Verify Deploy') {
 		    steps {
-			echo 'Verify Deploy..'
+			echo "Verify Deploy.."
 		    }
 		}
 		stage('Build') {
