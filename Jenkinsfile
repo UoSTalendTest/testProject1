@@ -37,12 +37,12 @@ pipeline { //Declarative Pipeline will do checkout automatically
         }
         stage("Build and Test") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/projectSources/GITTESTPROJECT1/pom.xml test" //-fn means fail-never!
+                sh "mvn ${MAVEN_CMD_OPTS} -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/projectSources/pom.xml test" //-fn means fail-never!
             }
         }
         stage("Package and Publish") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} -DaltDeploymentRepository=tac::default::http://tal-dev-admin.shef.ac.uk:8081/nexus/content/repositories/snapshots/ -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/projectSources/GITTESTPROJECT1/pom.xml deploy " //-fn means fail-never!
+                sh "mvn ${MAVEN_CMD_OPTS} -DaltDeploymentRepository=tac::default::http://tal-dev-admin.shef.ac.uk:8081/nexus/content/repositories/snapshots/ -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/projectSources/pom.xml deploy " //-fn means fail-never!
             }
         }
         stage("Deploy to Runtime") {
