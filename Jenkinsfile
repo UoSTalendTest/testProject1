@@ -43,15 +43,15 @@ pipeline { //Declarative Pipeline will do checkout automatically
         }
         stage("Package and Publish") {
             steps {
-                echo 'Deploy..'
+                sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml deploy" //-fn means fail-never!
             }
         }
-        stage("Deploy") {
+        stage("Deploy to Runtime") {
             steps {
                 echo 'Deploy..'
             }
         }
-        stage("Verify Deploy") {
+        stage("Verify Deploy to Runtime") {
             steps {
                 echo 'Deploy..'
             }
