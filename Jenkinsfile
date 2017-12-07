@@ -14,7 +14,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
     stages {
 		stage('Generate and Compile Sources') {
 		    steps {
-			echo 'Generate and Compile Sources..'
+			echo 'Generate and Compile Sources.. ${env.WORKSPACE} '
 			    // Apache Maven related side notes:
 			    // --batch-mode : recommended in CI to inform maven to not run in interactive mode (less logs)
 			    // -V : strongly recommended in CI, will display the JDK and Maven versions in use.
