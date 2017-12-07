@@ -33,7 +33,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
     stages {
         stage("Generate Sources") {
             steps {
-                echo "Generate and Compile Sources in workspace ${WORKSPACE}"
+                echo "Generate Sources..}"
                 sh "mvn ${MAVEN_CMD_OPTS} -f ${TALEND_HOME}/jenkins/ci-builder-pom.xml org.talend:ci.builder:6.4.1:local-generate"
             }
         }
