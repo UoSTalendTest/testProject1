@@ -1,8 +1,6 @@
 #!groovy
 
 def mailto = "h.babraa@sheffield.ac.uk"
-def talend_home = "/opt/talend"
-
 
 /* 
 
@@ -23,6 +21,9 @@ Tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
 
 pipeline { //Declarative Pipeline will do checkout automatically
     agent any
+        environment { 
+        	TALEND_HOME = "/opt/talend"
+    }
     tools { 
 		maven 'Maven' 
 		jdk 'Java 8' 
@@ -31,7 +32,11 @@ pipeline { //Declarative Pipeline will do checkout automatically
 		stage("Generate and Compile Sources") {
 		    steps {
 				echo "Generate and Compile Sources in workspace ${WORKSPACE}"
-				sh "mvn --batch-mode -X -V -U -e  -Dsurefire.useFile=false -f /opt/talend/jenkins/ci-builder-pom.xml --settings /opt/talend/studio/configuration/maven_user_settings.xml org.talend:ci.builder:6.4.1:local-generate"
+				sh "mvn --batch-mode -X -V -U -e  
+				-Dsurefire.useFile=false 
+				-f /opt/talend/jenkins/ci-builder-pom.xml 
+				--settings /opt/talend/studio/configuration/maven_user_settings.xml 
+				org.talend:ci.builder:6.4.1:local-generate"
 			}
 		}
 		stage('Test Coverage') {
