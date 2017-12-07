@@ -22,7 +22,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
         TALEND_HOME = "/opt/talend"
         MAVEN_CMD_OPTS =" --batch-mode -V -U -e" +
                 " -Dsurefire.useFile=false" +
-                " --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml" //
+                " --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml"
     }
     tools {
         //Tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
