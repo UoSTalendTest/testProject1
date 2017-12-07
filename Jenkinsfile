@@ -22,7 +22,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
         TALEND_HOME = "/opt/talend"
         MAVEN_CMD_OPTS =" --batch-mode -X -V -U -e" +
                 " -Dsurefire.useFile=false" +
-                " -f ${TALEND_HOME}jenkins/ci-builder-pom.xml" +
+                " -Dsurefire.failIfNoTests=true" + 
                 " --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml"
     }
     tools {
@@ -31,20 +31,22 @@ pipeline { //Declarative Pipeline will do checkout automatically
         jdk "Java 8"
     }
     stages {
-        stage("Generate and Compile Sources") {
+        stage("Generate Sources") {
             steps {
                 echo "Generate and Compile Sources in workspace ${WORKSPACE}"
-                sh "mvn ${MAVEN_CMD_OPTS} org.talend:ci.builder:6.4.1:local-generate"
+                sh "mvn ${MAVEN_CMD_OPTS} -f ${TALEND_HOME}/jenkins/ci-builder-pom.xml org.talend:ci.builder:6.4.1:local-generate"
             }
         }
-        stage("Test Coverage") {
-            steps {
-                echo "Test Coverage.."
-            }
-        }
-        stage("Tests") {
+        stage("Compile Sources") {
             steps {
                 echo "Tests.."
+                sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml compile -fn -e"
+            }
+        }
+        stage("Run Tests") {
+            steps {
+                echo "Tests.."
+                sh "mvn ${MAVEN_CMD_OPTS} -f ${WORKSPACE}/projectSources/pom.xml test -fn -e"
             }
         }
         stage("Package and Publish") {
