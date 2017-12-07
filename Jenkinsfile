@@ -13,9 +13,6 @@ Apache Maven related side notes:
 -f pass in pom
 --settings override local settings
 
-Advice: don"t define M2_HOME in general. Maven will autodetect its root fine.
-withEnv
-Tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
 */
 
 
@@ -29,6 +26,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
 			" --settings ${TALEND_HOME}/studio/configuration/maven_user_settings.xml"
     }
     tools { 
+	    //Tool actual names taken from "Managing Jenkins" → "Global Tool Configuration"
 		maven "Maven" 
 		jdk "Java 8" 
     }
@@ -36,7 +34,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
 		stage("Generate and Compile Sources") {
 		    steps {
 				echo "Generate and Compile Sources in workspace ${WORKSPACE}"
-			    sh "mvn ${MAVEN_OPTS} org.talend:ci.builder:6.4.1:local-generate"
+			    sh "mvn ${MAVEN_CMD_OPTS} org.talend:ci.builder:6.4.1:local-generate"
 			}
 		}
 		stage("Test Coverage") {
