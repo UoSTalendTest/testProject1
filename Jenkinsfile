@@ -49,7 +49,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
             steps {
                 sh "mvn ${MAVEN_CMD_OPTS}" + 
 		" -DaltDeploymentRepository=tac::default::http://tal-dev-admin.shef.ac.uk:8081/nexus/content/repositories/snapshots/" + //refernce to nexus repo - also seems to require a default url!
-		" -f ${WORKSPACE}/projectSources/pom.xml" +  // project pom created by ci-builder
+		" -f ${WORKSPACE}/projectSources/GITTESTPROJECT1/pom.xml" +  // project pom created by ci-builder
 		" deploy" //goal to compile deploy using the above pom
             }
         }
