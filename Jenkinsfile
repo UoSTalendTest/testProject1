@@ -34,6 +34,7 @@ pipeline { //Declarative Pipeline will do checkout automatically
             steps {
                 sh "mvn ${MAVEN_CMD_OPTS}" + 
 		" -f ${TALEND_HOME}/jenkins/ci-builder-pom.xml" + // pom used to run ci-builder to create maven java project with src and pom
+		" -Ddeploy.version=02-SNAPSHOT" + // version to pass through through ci builder to add to created pom
 		" clean org.talend:ci.builder:6.4.1:local-generate" //goal to generate sources using above pom
             }
         }
