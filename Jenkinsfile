@@ -32,19 +32,24 @@ pipeline { //Declarative Pipeline will do checkout automatically
     stages {
         stage("Generate Sources") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} "+ 
+                sh "mvn ${MAVEN_CMD_OPTS}" + 
 		" -f ${TALEND_HOME}/jenkins/ci-builder-pom.xml" + // pom used to run ci-builder to create maven java project with src and pom
 		" clean org.talend:ci.builder:6.4.1:local-generate" //goal to generate sources using above pom
             }
         }
         stage("Build and Test") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/projectSources/pom.xml test" //-fn means fail-never!
+                sh "mvn ${MAVEN_CMD_OPTS}" + 
+		" -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/projectSources/pom.xml" + // project pom created by ci-builder
+		" test" //goal to compile sources and run tests using above pom
             }
         }
         stage("Package and Publish") {
             steps {
-                sh "mvn ${MAVEN_CMD_OPTS} -DaltDeploymentRepository=tac::default::http://tal-dev-admin.shef.ac.uk:8081/nexus/content/repositories/snapshots/ -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/projectSources/pom.xml deploy " //-fn means fail-never!
+                sh "mvn ${MAVEN_CMD_OPTS}" + 
+		" -DaltDeploymentRepository=tac::default::http://tal-dev-admin.shef.ac.uk:8081/nexus/content/repositories/snapshots/" + //refernce to nexus repo - also seems to require a default url!
+		" -f /var/lib/jenkins/workspace/TalendDI-testProject1/develop/projectSources/pom.xml" +  // project pom created by ci-builder
+		" deploy" //goal to compile deploy using the above pom
             }
         }
         stage("Deploy to Runtime") {
